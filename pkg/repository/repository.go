@@ -1,6 +1,7 @@
 package repository
 
+import "github.com/bino1490/case-study/pkg/entity"
+
 type DbRepository interface {
-	GetScheduleByChannelID(channelId string, epochtime string,
-		logFields map[string]interface{}) (map[string]interface{}, error)
+	GetDBRecords(request entity.DBRequest) ([]entity.DBRecord, error)
 }

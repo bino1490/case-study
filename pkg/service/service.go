@@ -1,13 +1,13 @@
 package service
 
 import (
+	"github.com/bino1490/case-study/pkg/entity"
 	"github.com/bino1490/case-study/pkg/logger"
 	"github.com/bino1490/case-study/pkg/repository"
 )
 
-type ScheduleService interface {
-	GetScheduleByID(channelId string, epochtime string,
-		logFields map[string]interface{}) (map[string]interface{}, error)
+type DBService interface {
+	GetDBRecords(request entity.DBRequest) ([]entity.DBRecord, error)
 }
 
 //--  ----
@@ -23,8 +23,7 @@ func NewService(r repository.DbRepository) *Service {
 	}
 }
 
-func (s *Service) GetScheduleByID(channelId string, epochtime string,
-	logFields map[string]interface{}) (map[string]interface{}, error) {
-	logger.LogDebug("Entering Service.GetScheduleByID() ...", logFields)
-	return s.repo.GetScheduleByChannelID(channelId, epochtime, logFields)
+func (s *Service) GetDBRecords(request entity.DBRequest) ([]entity.DBRecord, error) {
+	logger.Logger.Debug("Entering Service.GetDBRecords() ...")
+	return s.repo.GetDBRecords(request)
 }

@@ -7,6 +7,8 @@ import (
 	"github.com/bino1490/case-study/pkg/service"
 )
 
+// InMemReqHandler the Handler Layer for future business logic enhancement
+// for now just redirecting to Service Layer
 func InMemReqHandler(inMemSvc *service.MemHandlers) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 

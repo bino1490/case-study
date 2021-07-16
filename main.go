@@ -23,9 +23,12 @@ func initService() {
 	logger.BootstrapLogger.Info("Starting " + config.SrvConfig.GetString("application.name") +
 		" with profile=" + config.SrvConfig.GetString("profile") + " properties")
 
-	//repository := initDatabase()
-	//service := service.NewService(repository)
+	// handler for DB Services
+	repository := initDatabase()
+	dbservice := service.NewService(repository)
+	addDBMemHandlers(dbservice)
 
+	//Handler for InMemory Services
 	inMemSvc := service.NewInMemService()
 	addInMemHandlers(inMemSvc)
 	err := http.ListenAndServe(":"+config.SrvConfig.GetString("http.port"), nil)
@@ -33,6 +36,10 @@ func initService() {
 		logger.BootstrapLogger.Error("Failed to ListenPort 8080")
 		panic(err)
 	}
+}
+
+func addDBMemHandlers(dbSvc service.DBService) {
+	http.Handle("/records", handler.DBHandler(dbSvc))
 }
 
 func addInMemHandlers(inMemSvc *service.MemHandlers) {
@@ -56,12 +63,3 @@ func initDatabase() repository.DbRepository {
 		panic(entity.ErrInvalidConfig)
 	}
 }
-
-// func addHandlers(mux *http.ServeMux, service service.ScheduleService) {
-
-// 	r.Handle("/getschedule/{channelId}",
-// 		middleware.AccessLog(
-// 			middleware.ParseHeader(
-// 				handler.GetScheduleByChannelID(
-// 					service)))).Methods(http.MethodGet, http.MethodOptions)
-// }
