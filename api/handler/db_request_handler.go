@@ -77,7 +77,6 @@ func BuildFailureRespBody(msg string) []byte {
 func BuildSuccessRespBody(records []entity.DBRecord) []byte {
 
 	logger.Logger.Debug("Entering handler.buildSuccessRespBody() ...")
-
 	res := response.Response{}
 	res.Code = "0"
 	res.Message = "Success"

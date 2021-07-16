@@ -72,7 +72,16 @@ func (r *CbRepository) GetDBRecords(request entity.DBRequest) ([]entity.DBRecord
 		if err != nil {
 			log.Fatal(err)
 		}
-		records = append(records, rec)
+		tc := 0
+		for _, value := range rec.Counts {
+			tc = tc + value
+		}
+		rec.TotalCount = tc
+		rec.Counts = make([]int, 0)
+		if (rec.TotalCount >= request.MinCount) && (rec.TotalCount <= request.MaxCount) {
+			records = append(records, rec)
+		}
+
 	}
 	logger.Logger.Debug("Found multiple documents (array of pointers): %+v\n", records)
 	// Close the cursor once finished
