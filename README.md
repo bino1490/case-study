@@ -1,1 +1,1 @@
-# getir-case-study
+# getir-case-study.
