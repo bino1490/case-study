@@ -10,5 +10,5 @@ in the requested format.
 2. Second endpoint is to create(POST) and fetch(GET) data from an in-memory database.
 
 ## **Micro service API Details**
--   [In Memory POST and Get API](./docs/inmemory.md)
--   [Fetch APi From MongoDB](./docs/db.md)
+-   [In Memory POST and Get API](./inmemory.md)
+-   [Fetch APi From MongoDB](./db.md)
