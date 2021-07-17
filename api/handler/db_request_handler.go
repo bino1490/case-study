@@ -22,6 +22,7 @@ func DBHandler(svc service.DBService) http.Handler {
 			WriteResponseData(w, "Method Not allowed", http.StatusMethodNotAllowed)
 			return
 		}
+		//checks for request body
 		bodyBytes, err := ioutil.ReadAll(r.Body)
 		defer r.Body.Close()
 		if err != nil {
@@ -33,7 +34,7 @@ func DBHandler(svc service.DBService) http.Handler {
 			WriteResponseData(w, "Need content-type 'application/json", http.StatusUnsupportedMediaType)
 			return
 		}
-
+		// converts to desired format
 		var memReq entity.DBRequest
 		err = json.Unmarshal(bodyBytes, &memReq)
 		_, sterr := time.Parse(DateMonthFormatConst, memReq.StartDate)
@@ -42,7 +43,7 @@ func DBHandler(svc service.DBService) http.Handler {
 			WriteResponseData(w, "Bad Request or invalid start/end Time", http.StatusBadRequest)
 			return
 		}
-
+		// calls service layer to perfor db operation
 		records, recErr := svc.GetDBRecords(memReq)
 		if recErr != nil {
 			WriteResponseData(w, "Error Fetching Data", http.StatusInternalServerError)
@@ -54,12 +55,14 @@ func DBHandler(svc service.DBService) http.Handler {
 
 }
 
+//to write the Response and pro=int the error logs
 func WriteResponseData(w http.ResponseWriter, msg string, statusCode int) {
 	logger.BootstrapLogger.Error(msg)
 	w.WriteHeader(statusCode)
 	w.Write(BuildFailureRespBody(msg))
 }
 
+//write failure logs
 func BuildFailureRespBody(msg string) []byte {
 	logger.Logger.Debug("Entering handler.BuildFailureRespBody() ...")
 	var records []map[string]interface{}
@@ -74,6 +77,7 @@ func BuildFailureRespBody(msg string) []byte {
 	return resStr
 }
 
+//write the success logs
 func BuildSuccessRespBody(records []entity.DBRecord) []byte {
 
 	logger.Logger.Debug("Entering handler.buildSuccessRespBody() ...")

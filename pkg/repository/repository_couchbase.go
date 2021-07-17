@@ -49,6 +49,7 @@ func NewCbRepository() *CbRepository {
 	}
 }
 
+//GetDBRecords to fetch the datas
 func (r *CbRepository) GetDBRecords(request entity.DBRequest) ([]entity.DBRecord, error) {
 	DateMonthFormatConst := "2006-01-02"
 	findOptions := options.Find()
@@ -65,7 +66,6 @@ func (r *CbRepository) GetDBRecords(request entity.DBRequest) ([]entity.DBRecord
 	if err != nil {
 		return nil, err
 	}
-	//totalCount := len()
 	for cur.Next(context.TODO()) {
 		var rec entity.DBRecord
 		err := cur.Decode(&rec)

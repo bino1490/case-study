@@ -10,12 +10,12 @@ type DBService interface {
 	GetDBRecords(request entity.DBRequest) ([]entity.DBRecord, error)
 }
 
-//--  ----
+//-- Service ----
 type Service struct {
 	repo repository.DbRepository
 }
 
-//--  ----
+//--NewService  ----
 func NewService(r repository.DbRepository) *Service {
 	logger.BootstrapLogger.Debug("Entering Service.NewService() ...")
 	return &Service{
@@ -23,6 +23,7 @@ func NewService(r repository.DbRepository) *Service {
 	}
 }
 
+//GetDBRecords redirects to repo layer to perform db operations
 func (s *Service) GetDBRecords(request entity.DBRequest) ([]entity.DBRecord, error) {
 	logger.Logger.Debug("Entering Service.GetDBRecords() ...")
 	return s.repo.GetDBRecords(request)

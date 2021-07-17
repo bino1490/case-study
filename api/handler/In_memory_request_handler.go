@@ -13,7 +13,7 @@ func InMemReqHandler(inMemSvc *service.MemHandlers) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 		logger.Logger.Debug("Entering handler.InMemReqHandler() ...")
-
+		// redirects to service layer
 		inMemSvc.InMemGetPOST(w, r)
 		return
 	})

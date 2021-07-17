@@ -1,3 +1,4 @@
+//Author: Bino Patric Prakah G
 package main
 
 import (
@@ -38,10 +39,12 @@ func initService() {
 	}
 }
 
+//to hadle the business operations
 func addDBMemHandlers(dbSvc service.DBService) {
 	http.Handle("/records", handler.DBHandler(dbSvc))
 }
 
+//addInMemHandlers to hadle the business operations
 func addInMemHandlers(inMemSvc *service.MemHandlers) {
 	//http.HandleFunc("/in-memory", inMemSvc.InMemGetPOST)
 	http.Handle("/in-memory", handler.InMemReqHandler(inMemSvc))
