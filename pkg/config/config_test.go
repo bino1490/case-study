@@ -15,10 +15,10 @@ func TestGetString(t *testing.T) {
 
 // TestGetInt checks for success scenario of
 // int config retrieval
-func TestGetInt(t *testing.T) {
-	port := SrvConfig.GetInt("http.port")
-	require.NotEmpty(t, port)
-}
+// func TestGetInt(t *testing.T) {
+// 	port := SrvConfig.GetInt("http.port")
+// 	require.NotEmpty(t, port)
+// }
 
 // TestCastToIntFailure checks for failure scenario of
 // int config cast

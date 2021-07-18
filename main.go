@@ -4,6 +4,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/bino1490/case-study/api/handler"
 	"github.com/bino1490/case-study/pkg/config"
@@ -33,7 +34,8 @@ func initService() {
 	//Handler for InMemory Services
 	inMemSvc := service.NewInMemService()
 	addInMemHandlers(inMemSvc)
-	err := http.ListenAndServe(":"+config.SrvConfig.GetString("http.port"), nil)
+	//err := http.ListenAndServe(":"+config.SrvConfig.GetString("http.port"), nil)
+	err := http.ListenAndServe(":"+os.Getenv("PORT"), nil)
 	if err != nil {
 		logger.BootstrapLogger.Error("Failed to ListenPort 8080")
 		panic(err)
