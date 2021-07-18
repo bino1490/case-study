@@ -2,6 +2,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/bino1490/case-study/api/handler"
@@ -39,8 +40,19 @@ func initService() {
 	}
 }
 
+//-- SYSTEM GENEREATED: Testing Code ----
+//-- This is a primitive test handler that should be removed by the developer
+func simplehandler(service service.DBService) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		title := "simple response..."
+		fmt.Fprintf(w, "Hello from:  "+title+"\n")
+	})
+}
+
 //to hadle the business operations
 func addDBMemHandlers(dbSvc service.DBService) {
+	//-- This is a primitive test handler that should be removed by the developer
+	http.Handle("/", simplehandler(dbSvc))
 	http.Handle("/records", handler.DBHandler(dbSvc))
 }
 
