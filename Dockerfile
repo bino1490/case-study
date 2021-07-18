@@ -7,6 +7,6 @@ COPY . ./
 
 RUN go build -o /case-study
 
-EXPOSE 8080
+EXPOSE 3000
 
 CMD [ "/case-study" ]

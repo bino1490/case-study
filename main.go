@@ -35,6 +35,7 @@ func initService() {
 	inMemSvc := service.NewInMemService()
 	addInMemHandlers(inMemSvc)
 	//err := http.ListenAndServe(":"+config.SrvConfig.GetString("http.port"), nil)
+	//os.Setenv("PORT", "5000")
 	err := http.ListenAndServe(":"+os.Getenv("PORT"), nil)
 	if err != nil {
 		logger.BootstrapLogger.Error("Failed to ListenPort 8080")
